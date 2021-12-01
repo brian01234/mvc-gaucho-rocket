@@ -12,6 +12,20 @@ class RegistroController{
     public function show(){
         echo $this->printer->render("view/registroView.html");
     }
+    public function procesarFormulario()
+    {
+        $codigo_alta=md5(time());
+        $data = array(
+            'nombre' => $_POST['usuario_nombre_reg'],
+            'apellido' => $_POST['usuario_apellido_reg'],
+            'email' => $_POST['usuario_email_reg'],
+            'clave' => md5($_POST['usuario_clave_1_reg']),
+            'codigo_alta' => $codigo_alta
+        );
+
+        $this->registroModel->registrarUserModel($data);
+        header("Location: /mvc-gaucho-rocket/registro/validar?codigo_alta=" . $codigo_alta);
+    }
 
     public function validar(){
 		 $data["codigo_alta"] = $_GET["codigo_alta"];
@@ -36,7 +50,7 @@ class RegistroController{
 				$idUsuario=$valido[0]["id"] ;
 				$actualicoCodigoAlta = $this->registroModel->getactualicoCodigoAlta($idUsuario);
  				$data["mensaje"] = "Felicitaciones,ya puede ingresar al sistema.";
-
+ 				header("Location: /mvc-gaucho-rocket/login?msgRegistro=Felicitaciones,ya puede ingresar al sistema.");
 
 				}
          echo $this->printer->render("view/verificacionView.html", $data);

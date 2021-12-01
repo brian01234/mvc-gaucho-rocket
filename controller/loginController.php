@@ -14,6 +14,7 @@ class loginController{
         $data = [];
         if(!isset ($_SESSION["id_usuario"])) {
             if (isset($_GET["msg"])) {$data["msg"] = $_GET["msg"];};
+            if (isset($_GET["msgRegistro"])) {$data["msgRegistro"] = $_GET["msgRegistro"];};
             echo $this->printer->render("view/loginView.html", $data);
         }else{$this->showSesion();}
     }

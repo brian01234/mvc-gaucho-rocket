@@ -3,7 +3,13 @@ class Configuration{
 
     private $config;
 
-	    public  function createRegistroController(){
+	    public  function createMedicoController(){
+        require_once("controller/MedicoController.php");
+        return new MedicoController($this->createMedicoModel(),$this->createPrinter());
+    }
+
+
+	public  function createRegistroController(){
         require_once("controller/RegistroController.php");
         return new RegistroController($this->createRegistroModel(),$this->createPrinter());
     }
@@ -32,9 +38,15 @@ class Configuration{
         require_once("controller/cerrarSesion.php");
         return new cerrarSesion();
     }
-	
-	
-	
+
+
+    private  function createMedicoModel(){
+        require_once("model/MedicoModel.php");
+        $database = $this->getDatabase();
+        return new MedicoModel($database);
+    }
+
+
     private  function createRegistroModel(){
         require_once("model/RegistroModel.php");
         $database = $this->getDatabase();

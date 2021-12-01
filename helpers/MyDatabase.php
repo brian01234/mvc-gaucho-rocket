@@ -45,4 +45,16 @@ class MyDatabase{
         $this->connection->query($sql);
     }
 	
+	
+	    public function queryInsertUpdateConReturnId($sql){
+        $comm=$this->connection->prepare($sql);
+        $comm->execute();
+	 
+       $resultado= mysqli_insert_id($this->connection);
+
+        return $resultado;
+    }
+	
+	
+	
 }
