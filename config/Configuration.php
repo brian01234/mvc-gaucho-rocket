@@ -3,7 +3,17 @@ class Configuration{
 
     private $config;
 
-	    public  function createMedicoController(){
+	    public  function createReservaController(){
+        require_once("controller/ReservaController.php");
+        return new ReservaController($this->createReservaModel(),$this->createPrinter());
+    }
+
+    public  function createMisreservasController(){
+        require_once("controller/misReservasController.php");
+        return new misReservasController($this->createMisReservasModel(),$this->createPrinter());
+    }
+
+	public  function createMedicoController(){
         require_once("controller/MedicoController.php");
         return new MedicoController($this->createMedicoModel(),$this->createPrinter());
     }
@@ -44,6 +54,19 @@ class Configuration{
         require_once("model/MedicoModel.php");
         $database = $this->getDatabase();
         return new MedicoModel($database);
+    }
+	
+	
+	    private  function createReservaModel(){
+        require_once("model/ReservaModel.php");
+        $database = $this->getDatabase();
+        return new ReservaModel($database);
+    }
+
+    private  function createMisReservasModel(){
+        require_once("model/misReservasModel.php");
+        $database = $this->getDatabase();
+        return new misReservasModel($database);
     }
 
 

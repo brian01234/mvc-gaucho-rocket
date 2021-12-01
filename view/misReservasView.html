@@ -1,0 +1,63 @@
+
+{{>header}}
+<br><br><br><br><br>
+<div class="container">
+
+
+        {{#mensaje}} 
+		    <div class="alert alert-success" role="alert">
+ <p>{{{mensaje}}}</p>
+		    </div>
+        {{/mensaje}}
+
+
+<div class="container">
+    {{#titulo}}
+    <h2>{{titulo}}</h2>
+    <h4>{{origenDestino}}</h4>
+    <input type="hidden" name="origen" value="{{idOrigen}}">
+    <input type="hidden" name="destino" value="{{idDestino}}">
+    {{/titulo}}
+
+    <br>
+
+    {{#vuelosDisponibles}}
+    <hr>
+        <h4>{{vuelosDisponibles}}</h4>
+    {{/vuelosDisponibles}}
+        <h2>Mis reservas</h2>
+        <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary">Reservar vuelo</button></a>
+<table class="table table-hover">
+    <tr>
+        <!--<th>id Vuelo</th>-->
+        <th>Cod. Reserva</th>
+        <th>T. Equipo</th>
+        <th>Fecha</th>
+        <th>Origen</th>
+        <th>Destino</th>
+        <th>Asiento</th>
+        <th>Cabina</th>
+        <th>Servicio</th>
+        <th>Hora</th>
+        <th>Comprobante</th>
+    </tr>
+    {{#reservas}}
+    <tr>
+        <!--<td>{{idVuelo}}</td>-->
+        <td>{{codigo_reserva}}</td>
+        <td>({{tipo_equipo}})</td>
+        <td>{{fecha}}</td>
+        <td>{{origen}}</td>
+        <td>{{destino}}</td>
+        <td>{{asiento}}</td>
+        <td>{{cabina}}</td>
+        <td>{{nombre_servicio}}</td>
+        <td>{{hora}}</td>
+        <td><a><button type="submit" class="btn btn-outline-secondary btn-sm">PDF</button></a></td>
+    </tr>
+    {{/reservas}}
+</table>
+
+</div> 
+</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>footer}}
