@@ -29,6 +29,9 @@ class loginController{
         $resultado=$this->loginModel->iniciarSesion($email, md5($clave));
         if ($resultado!=[]){
             $_SESSION["id_usuario"]=$resultado["id"];
+            $_SESSION["nombre"]=$resultado["nombre"] ;
+            $_SESSION["apellido"]=$resultado["apellido"];
+            $_SESSION["email"]=$resultado["email"];
             $this->sessionUser->show($resultado["id_rol"]);
         }else{
             header("Location: /mvc-gaucho-rocket/login?msg=El email o contraseña es incorrecto!");
