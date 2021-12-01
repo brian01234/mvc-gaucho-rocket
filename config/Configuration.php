@@ -31,7 +31,7 @@ class Configuration{
 
     public function createLoginController(){
         require_once("controller/loginController.php");
-        return new loginController($this->createLoginModel(), $this->createPrinter());
+        return new loginController($this->createLoginModel(), $this->createPrinter(), $this->createSessionUser());
     }
 
     public function createLogueadoController(){
@@ -41,7 +41,7 @@ class Configuration{
 
     public function createSistemaController(){
         require_once("controller/sistemaController.php");
-        return new sistemaController($this->createSistemaModel(), $this->createPrinter());
+        return new sistemaController($this->createSistemaModel(), $this->createPrinter(), $this->createSessionUser());
     }
 
     public function createCerrarSesionController(){
@@ -92,6 +92,19 @@ class Configuration{
         require_once("model/sistemaModel.php");
         $database=$this->getDatabase();
         return new sistemaModel($database);
+    }
+
+
+
+    public function createSessionUser(){
+        require_once ("controller/sessionUser.php");
+        return new sessionUser($this->createModelSessionUser());
+    }
+
+    public function createModelSessionUser(){
+        require_once ("model/modelSessionUser.php");
+        $database=$this->getDatabase();
+        return new modelSessionUser($database);
     }
 
     private  function getDatabase(){

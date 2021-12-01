@@ -11,7 +11,10 @@ class logueadoController{
     public function show(){
         if(isset ($_SESSION["id_usuario"])){
             $data["resultado"]=$this->logueadoModel->getDatosDelUsuario($_SESSION["id_usuario"]);
-            echo $this->printer->render("view/logueadoView.html", $data);
+            if($data!=[]){
+                echo $this->printer->render("view/logueadoView.html", $data);
+            }
+            else{header("Location: /login");}
         }else{
             header("Location: /login");
         }

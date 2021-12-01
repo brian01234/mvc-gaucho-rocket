@@ -2,16 +2,23 @@
 class sistemaController{
     private $printer;
     private $sistemaModel;
+    private $sessionUser;
 
-    public function __construct($sistemaModel, $printer){
+    public function __construct($sistemaModel, $printer, $sessionUser){
         $this->printer=$printer;
         $this->sistemaModel=$sistemaModel;
+        $this->sessionUser=$sessionUser;
     }
 
     public function show(){
         if(isset ($_SESSION["id_usuario"])){
-            $data["resultado"]=$this->sistemaModel->listaDeUsuarios();
-            echo $this->printer->render("view/sistemaView.html", $data);
+            $id_rol=$this->sessionUser->getRol($_SESSION["id_usuario"]);
+            if ($id_rol==1){
+                $data["resultado"]=$this->sistemaModel->listaDeUsuarios();
+                echo $this->printer->render("view/sistemaView.html", $data);
+            }else{
+                $this->sessionUser->show($id_rol);
+            }
         }else{
             header("Location: /mvc-gaucho-rocket/login");
         }

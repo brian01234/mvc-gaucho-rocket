@@ -18,6 +18,9 @@ class ReservaModel
         return $this->database->query($SQL);
     }
 
+    public  function codigo(){
+        return $this->database->query("SELECT * FROM turno");
+    }
   public function nombreDestino($id){
         $destino=$this->database->query("SELECT nombre FROM destinos WHERE id_destino='$id'");
         return $destino[0]["nombre"];
@@ -31,6 +34,14 @@ class ReservaModel
   }
   public function datosVuelo($idVuelo){
         return $this->database->query("SELECT V.*, Origen.nombre AS nombre_origen, Destino.nombre AS nombre_destino, E.tipo AS tipo_equipo, TE.descripcion AS nombre_tipo_equipo FROM vuelo V JOIN destinos Origen ON V.id_origen=Origen.id_destino JOIN destinos Destino ON V.id_destino=Destino.id_destino JOIN equipo E ON V.id_equipo=E.matricula JOIN tipo_de_equipo TE ON E.tipo=TE.tipo WHERE V.id_vuelo='$idVuelo';");
+  }
+  public function equipoNivel_1_2($idEquipo){
+        return $this->database->query("SELECT * FROM equipo WHERE
+                                      (tipo LIKE 'O' OR tipo LIKE 'BA') AND matricula LIKE '$idEquipo';");
+  }
+  public function listaEquiposNivel_1_2(){
+        return $this->database->query("SELECT * FROM tipo_de_equipo WHERE
+                                      (tipo LIKE 'O' OR tipo LIKE 'BA')");
   }
   public function dameServiciosDeABordo(){
         return $this->database->query("SELECT * FROM servicio_de_a_bordo;");

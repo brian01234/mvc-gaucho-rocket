@@ -3,10 +3,12 @@
 class loginController{
     private $loginModel;
     private $printer;
+    private $sessionUser;
 
-    public function __construct($loginModel, $printer){
+    public function __construct($loginModel, $printer, $sessionUser){
         $this->printer=$printer;
         $this->loginModel=$loginModel;
+        $this->sessionUser=$sessionUser;
     }
     public function show(){
         $data = [];
@@ -14,17 +16,12 @@ class loginController{
             if (isset($_GET["msg"])) {$data["msg"] = $_GET["msg"];};
             if (isset($_GET["msgRegistro"])) {$data["msgRegistro"] = $_GET["msgRegistro"];};
             echo $this->printer->render("view/loginView.html", $data);
-        }else{$this->showSesion($_SESSION["id_usuario"]);}
+        }else{$this->showSesion();}
     }
 
-    public function showSesion($id){
-        $id_rol=$this->loginModel->getUserRol($id);
-        if ($id_rol==1){
-            header("Location: /mvc-gaucho-rocket/sistema");
-        }
-        if ($id_rol==2){
-            header("Location: /mvc-gaucho-rocket/logueado");
-        }
+    public function showSesion(){
+        $id_rol=$this->sessionUser->getRol($_SESSION["id_usuario"]);
+        $this->sessionUser->show($id_rol);
     }
 
     public function procesarLogin(){
@@ -32,10 +29,10 @@ class loginController{
         $resultado=$this->loginModel->iniciarSesion($email, md5($clave));
         if ($resultado!=[]){
             $_SESSION["id_usuario"]=$resultado["id"];
-            $_SESSION["nombre"]=$resultado["nombre"];
+            $_SESSION["nombre"]=$resultado["nombre"] ;
             $_SESSION["apellido"]=$resultado["apellido"];
             $_SESSION["email"]=$resultado["email"];
-            $this->showSesion($resultado["id"]);
+            $this->sessionUser->show($resultado["id_rol"]);
         }else{
             header("Location: /mvc-gaucho-rocket/login?msg=El email o contraseña es incorrecto!");
         }
