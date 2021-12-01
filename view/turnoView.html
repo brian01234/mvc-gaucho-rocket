@@ -9,14 +9,12 @@
  <p>{{{mensaje}}}</p>
 		    </div>
         {{/mensaje}}
-		
-		
 
-    <div class="alert alert-success" role="alert">
-        <strong></strong> Formulario para solicitar turno
-    </div>
-    <br><br>
+
 <div class="container">
+    <h2>Formulario para solicitar turno</h2>
+
+    <br>
 <form action="/mvc-gaucho-rocket/medico/procesarTurno" class="form-neon" method="POST">
 <p><label>Nombre:</label><strong>{{nombre}}</strong></p>
 <p><label>Apellido:</label><strong>{{apellido}}</strong></p>
@@ -33,7 +31,7 @@
 </div>
 <br><br>
 <div>
-<label>Fecha :</label><input type="date" name="fecha" id="fecha"  class="form-control">
+<label>Fecha :</label><input required type="date" name="fecha" id="fecha"  class="form-control">
 </div>
 
 

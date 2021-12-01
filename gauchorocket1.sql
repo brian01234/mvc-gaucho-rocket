@@ -1,11 +1,10 @@
 CREATE DATABASE gauchorocket1;
-USE gauchorocket1;
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2021 a las 22:32:17
+-- Tiempo de generación: 27-10-2021 a las 17:54:29
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.24
 
@@ -79,14 +78,6 @@ CREATE TABLE `turnos` (
   `nivel` int(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `turnos`
---
-
-INSERT INTO `turnos` (`id_turno`, `id_usuario`, `id_centro`, `fecha`, `estado`, `nivel`) VALUES
-(1, 84, 1, '0000-00-00', 'En espera', NULL),
-(2, 85, 1, '0000-00-00', 'Chequeo realizado', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -109,9 +100,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `email`, `id_rol`, `clave`, `codigo_alta`) VALUES
 (1, 'Gaucho', 'Rocket', 'gauchorocketadmin@email.com', 1, '81dc9bdb52d04dc20036dbd8313ed055', '-'),
-(84, 'usuario uno', 'apellido', 'usuario1@email.com', 2, '81dc9bdb52d04dc20036dbd8313ed055', NULL),
-(85, 'usuario dos', 'apellido', 'usuario2@email.com', 2, '81dc9bdb52d04dc20036dbd8313ed055', NULL),
-(86, 'usuario tres', 'apellido', 'usuario3@email.com', 2, '81dc9bdb52d04dc20036dbd8313ed055', NULL);
+(84, 'usuario uno', 'apellido', 'usuario1@email.com', 2, '81dc9bdb52d04dc20036dbd8313ed055', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -158,7 +147,7 @@ ALTER TABLE `centros`
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `id_turno` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_turno` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

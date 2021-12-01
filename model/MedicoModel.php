@@ -57,8 +57,10 @@ class MedicoModel
     public function tieneTurnoActual($id, $fechaActual){
         return $this->database->query("SELECT * FROM turnos WHERE id_usuario='$id'");
     }
-    public function datosTurnoActual($id){
-        return $this->database->query("SELECT * FROM turnos JOIN centros ON turnos.id_centro=centros.id_centro WHERE id_usuario='$id' AND fecha=(SELECT MAX(t2.fecha) FROM turnos t2 WHERE t2.id_usuario='$id');");
+    public function datosTurnoActual($idUsuario){
+        return $this->database->query("SELECT *
+                                       FROM turnos JOIN centros ON turnos.id_centro=centros.id_centro
+                                       WHERE id_turno=(SELECT MAX(t2.id_turno) FROM turnos t2 WHERE t2.id_usuario='$idUsuario');");
     }
     public function datosUsuarioTurno($id){
         return $this->database->query("SELECT * FROM usuario WHERE id='$id'");

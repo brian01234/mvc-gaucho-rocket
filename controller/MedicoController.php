@@ -12,8 +12,8 @@ class MedicoController{
     public function show(){
 
         if(isset ($_SESSION["id_usuario"])){
-            $turno=$this->medicoModel->tieneTurnoActual($_SESSION["id_usuario"], "fecha actual");
-            if ($turno!=[]){
+            $turno=$this->medicoModel->datosTurnoActual($_SESSION["id_usuario"]);
+            if ($turno!=[] AND $turno[0]["estado"]!="Baja"){
                 if ($turno[0]["estado"]=="En espera"){
                     //Realizar chequeo
                     $this->realizarChequeo($_SESSION["id_usuario"]);
@@ -93,7 +93,7 @@ class MedicoController{
 	
 
 
-    /*Metodos de MedicoController.php*/
+
     public function solicitarTurno(){
 
 	$centrosMedicos = $this->medicoModel->dameCentros();
@@ -125,29 +125,34 @@ class MedicoController{
     public function procesarChequeoMedico(){
         if (isset($_POST["idTurno"])){
             $this->medicoModel->actualizarEstado($_POST["idTurno"], "Chequeo realizado");
-            $nivel=rand(1,3);
-            $this->medicoModel->asignarNivel($_POST["idTurno"], $nivel);
+            $this->medicoModel->asignarNivel($_POST["idTurno"], $this->asignarNivel());
             $data["id_turno"]=$_POST["idTurno"];
             echo $this->printer->render("view/linkEmailResultadoView.html", $data);
         }
     }
     public function resultadoMedico(){
-        if (isset($_POST["id_turno"])){
+        $this->chequeoRealizado();
+    }
+
+    public function chequeoRealizado(){
+        if (isset($_SESSION["id_usuario"])){
             $data=[];
             $data=$this->dameDatosUsuario($data);
-            $turno=$this->medicoModel->dameTurno($_POST["id_turno"]);
-            $data["turno"] =  $turno;
+            $data["turno"]=$this->medicoModel->datosTurnoActual($_SESSION["id_usuario"]);
             $data["mensaje"]="Chequeo medico realizado con exito!";
 
             echo $this->printer->render("view/resultadoConfirmadoView.html", $data);
         }
     }
 
-    public function chequeoRealizado(){
-        echo "chequeoRealizado";
+    public function bajaTurno(){
+        if (isset($_POST["idTurno"])){
+            $this->medicoModel->actualizarEstado($_POST["idTurno"], "Baja");
+            header("Location: /mvc-gaucho-rocket/login");
+        }
     }
-	
-	
-	
-	
+
+    public function asignarNivel(){
+        return rand(1,3);
+    }
 }

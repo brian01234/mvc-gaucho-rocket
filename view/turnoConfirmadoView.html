@@ -28,7 +28,10 @@
         <input type="hidden" name="idTurno" value="{{id_turno}}">
         <button type="submit" class="btn btn-primary">Realizar chequeo</button>
     </form>
-            <a href="#"><button type="button" class="btn btn-outline-danger float-right">Baja turno</button></a>
+
+            <form class="float-right" action="/mvc-gaucho-rocket/medico/bajaTurno" method="post">
+            <button type="submit" name="idTurno" value="{{id_turno}}" class="btn btn-outline-danger">Baja turno</button>
+            </form>
     {{/turno}}
 
         </div></div>
