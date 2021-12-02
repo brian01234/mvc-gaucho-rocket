@@ -46,7 +46,7 @@ class MyDatabase{
     }
 	
 	
-	    public function queryInsertUpdateConReturnId($sql){
+    public function queryInsertUpdateConReturnId($sql){
         $comm=$this->connection->prepare($sql);
         $comm->execute();
 	 

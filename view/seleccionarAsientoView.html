@@ -2,7 +2,17 @@
 {{>header}}
 <br><br><br><br><br>
 <div class="container">
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="/mvc-gaucho-rocket/reserva/">Solicitar Reserva</a></li>
+            {{#vuelo}}
+            <li class="breadcrumb-item"><a href="/mvc-gaucho-rocket/reserva/procesarDisponibilidad?origen={{id_origen}}&destino={{id_destino}}">Vuelos</a></li>
+            {{/vuelo}}
+            <li class="breadcrumb-item" aria-current="page">Cabina y Servicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Reservar</li>
+        </ol>
+    </nav>
+    <br>
 
         {{#mensaje}}
 		    <div class="alert alert-danger" role="alert">
@@ -11,15 +21,35 @@
         {{/mensaje}}
 
 
-<div class="container">
-<form action="/mvc-gaucho-rocket/reserva/realizarReserva" class="form-neon" method="post">
+
+
+<div class="container form-neon">
+    {{#noDisponible}}
+    <div class="alert alert-info" role="alert">
+        <h4>{{{noDisponible}}}</h4>
+    </div>
+    <form action="/mvc-gaucho-rocket/reserva/irAlistaDeEspera" onsubmit="modal(this);" method="post" title="Ir a lista de espera..."><br>
+        {{#vuelo}}
+        <input type="hidden" name="vuelo" value="{{id_vuelo}}">
+        {{/vuelo}}
+        {{#cabina}}
+        <input type="hidden" name="cabina" value="{{id_cabina}}">
+        {{/cabina}}
+        {{#servicio}}
+        <input type="hidden" name="servicio" value="{{id_servicio}}">
+        {{/servicio}}
+        <input type="hidden" name="asiento" value="">
+        <button type="submit" class="btn btn-raised btn-info btn-sm">Ir a lista de espera</button>
+    </form><br><br><hr>
+    {{/noDisponible}}
+<form action="/mvc-gaucho-rocket/reserva/realizarReserva" onsubmit="modal(this);" title="Reserva..." method="post">
 
 <div>
  <h1>Seleccionar asiento en el equipo:</h1><br>
     <div>
         <p>{{#vuelo}}
             <input type="hidden" name="vuelo" value="{{id_vuelo}}">
-        ({{tipo_equipo}}) {{nombre_origen}} - {{nombre_destino}} {{fecha}} {{hora}}
+        ({{tipo_equipo}} {{modelo_equipo}}) {{nombre_origen}} - {{nombre_destino}} {{fecha}} {{hora}}
             <a class="btn btn-outline-primary border-0" href="/mvc-gaucho-rocket/reserva">Editar</a>
             {{/vuelo}}</p>
         <p>{{#cabina}}Cabina tipo <b>{{nombre}}</b>
@@ -34,11 +64,11 @@
             {{/vuelo}}
         </p>
     </div>
-    <div style="height: 220px;width:650px;" class=" border"><br>
+    <div style="" class="overflow-hidden border"><br>
     {{#asientos}}
         <div class="form-group float-left text-center" style="width:120px;">
         <input required style="width: 50px;height: 50px;" type="radio" name="asiento" value="{{id_asiento}}">
-        <p class="">{{asiento}} {{estado}}</p>
+        <p class="text-{{type}}">{{asiento}} {{estado}}</p>
         </div>
     {{/asientos}}
     </div>
@@ -52,6 +82,7 @@
 
 </form>
     <form id="cabina" method="post" action="/mvc-gaucho-rocket/reserva/seleccionarCabinas"></form>
-</div> 
+</div>
 </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>modal}}
 {{>footer}}

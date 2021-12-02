@@ -2,7 +2,17 @@
 {{>header}}
 <br><br><br><br><br>
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="/mvc-gaucho-rocket/reserva/">Solicitar Reserva</a></li>
+            {{#datosVuelo}}
+                <li class="breadcrumb-item"><a href="/mvc-gaucho-rocket/reserva/procesarDisponibilidad?origen={{idOrigen}}&destino={{idDestino}}">Vuelos</a></li>
+            {{/datosVuelo}}
 
+            <li class="breadcrumb-item active" aria-current="page">Cabina y Servicio</li>
+        </ol>
+    </nav>
+    <br>
 
         {{#mensaje}} 
 		    <div class="alert alert-success" role="alert">
@@ -13,6 +23,9 @@
 
 <div class="container">
 <form action="/mvc-gaucho-rocket/reserva/seleccionarAsiento" class="form-neon" method="post">
+    {{#datosVuelo}}
+    <h3>{{datosVuelo}}</h3><br>
+    {{/datosVuelo}}
     <input type="hidden" name="vuelo" value="{{vuelo}}">
 <div>
     <label>Seleccionar cabina:</label>

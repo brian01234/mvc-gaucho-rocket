@@ -1,0 +1,39 @@
+{{>headerSistema}}
+        <!-- Page content-->
+        <h4 class="ml-3 mt-4">Equipos</h4>
+        <div class="container-fluid"><br>
+            <img style="width: 40%;" src="public/imagenes/equipos/equipos.jpg">
+            <h4 class="mt-4">Vuelos</h4><br>
+            <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>T. Equipo</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+                {{#vuelos}}
+                <tr>
+                    <!--<td><input type="radio" name="vuelo" value="{{id_vuelo}}" required></td>-->
+                    <td>{{id_vuelo}}</td>
+                    <td>({{tipo_equipo}}) {{modelo_equipo}}</td>
+                    <td>{{nombre_origen}}</td>
+                    <td>{{nombre_destino}}</td>
+                    <td>{{fecha}}</td>
+                    <td>{{hora}}</td>
+                    <td>${{precio}}</td>
+                    <td>{{estado}}</td>
+                    <td><button form="eliminar" class="btn btn-outline-danger" type="submit" name="id_vuelo" value="{{id_vuelo}}">Eliminar</button></td>
+                </tr>
+                {{/vuelos}}
+            </table>
+
+            <form id="eliminar" method="post" action="/mvc-gaucho-rocket/sistemaVuelos/eliminarVuelo"></form>
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>footer}}
+    </div>
+</div>

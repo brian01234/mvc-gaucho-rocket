@@ -1,0 +1,16 @@
+<!-- Modal -->
+<div class="modal modal-title" id="modal" tabindex="-1"  aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 id="modal-title" class="text-center"></h2><br>
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>function modal(form){$("#modal-title").html($(form).attr("title"));$('.modal').modal('hide');$('.modal-title').modal('show');}</script>

@@ -8,7 +8,6 @@ body {
 
 /*Portada*/
 .containerImage{
-    background: rgba(0,0,0,1);
     background-image: url(../imagenes/home/home.jpg);
     background-size: cover;
     background-position: center;

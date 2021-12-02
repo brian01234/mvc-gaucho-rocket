@@ -3,23 +3,27 @@
 <br><br><br><br><br>
 <div class="container">
     <div class="alert alert-success" role="alert">
-        <strong></strong> Estas logueado! <a class="float-right" href="/mvc-gaucho-rocket/cerrarSesion"><button type="button" class="border-0 mb-1 btn btn-outline-secondary">Cerrar sesión</button></a>
+        <strong></strong> Estas logueado!
     </div>
     <br><br>
 <div class="container">
-<p>
-    <a href="/mvc-gaucho-rocket/medico"><button type="button" class="btn btn-outline-secondary">Realizar chequeo médico</button></a>
-
+    <p class="float-left">
+        <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary bg-white w3-hover-shadow">Reservar Vuelo
+            <img style="width: 70px;" src="/mvc-gaucho-rocket/public/imagenes/sistema/vuelos.jpg">
+        </button>
+        </a>
+    </p>
+<p class="float-left">
+    <a href="/mvc-gaucho-rocket/medico"><button type="button" class="btn btn-outline-secondary bg-white w3-hover-shadow">Chequeo médico
+        <img style="width: 50px;" src="/mvc-gaucho-rocket/public/imagenes/sistema/medico.png">
+    </button></a>
 </p>
-
     <p class="float-right">
-        <a href="/mvc-gaucho-rocket/MisReservas"><button type="button" class="btn btn-outline-primary border-0">Mis reservas</button></a>
+        <a href="/mvc-gaucho-rocket/MisReservas"><button type="button" class="btn btn-outline-secondary bg-white w3-hover-shadow">Mis reservas
+            <img class="ml-1" style="width: 45px;" src="/mvc-gaucho-rocket/public/imagenes/sistema/reserva.png">
+        </button></a>
 
     </p>
-<p>
-    <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary">Reservar Vuelo</button></a>
-
-</p>
 
 
 
@@ -36,6 +40,9 @@
             <td>{{nombre}}</td>
             <td>{{apellido}}</td>
             <td>{{rol_usuario}}</td>
+            {{#Administrador}}
+            <td><a href="/mvc-gaucho-rocket/sistema"><button class="btn btn-outline-primary">Sistema</button></a></td>
+            {{/Administrador}}
 
         </tr>
         {{/resultado}}

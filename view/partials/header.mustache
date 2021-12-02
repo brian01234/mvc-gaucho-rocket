@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Normalize V8.0.1 -->
 <link rel="stylesheet" href="//mvc-gaucho-rocket/public/css/normalize.css">
@@ -41,9 +42,21 @@
 <div class="w3-top">
     <div class="w3-bar w3-black w3-card">
         <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-        <a href="/mvc-gaucho-rocket/home" class="w3-bar-item w3-button w3-padding-large">Home</a>
-        <a href="/mvc-gaucho-rocket/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a>
-        <a href="/mvc-gaucho-rocket/registro" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Registro</a>
+        <a href="/mvc-gaucho-rocket/home" class="w3-bar-item w3-button w3-padding"><img class="mr-4" style="width: 40px;" src="/mvc-gaucho-rocket/public/imagenes/logo.png">Home</a>
+
+        {{#session}}
+            <div class="float-right">
+                <a href="/mvc-gaucho-rocket/logueado" class="w3-bar-item w3-button w3-padding-large">
+                    <span class="material-icons mr-2" style="vertical-align: top;">account_circle</span>{{session}}</a>
+                <a href="/mvc-gaucho-rocket/cerrarSesion" class="w3-bar-item w3-button w3-padding-large">Cerrar sesión<span class="material-icons ml-2" style="vertical-align: top;">logout</span></a>
+            </div>
+        {{/session}}
+        {{^session}}
+            <div class="float-right">
+                <a href="/mvc-gaucho-rocket/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a>
+                <a href="/mvc-gaucho-rocket/registro" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Registro</a>
+            </div>
+        {{/session}}
     </div>
 </div>
 

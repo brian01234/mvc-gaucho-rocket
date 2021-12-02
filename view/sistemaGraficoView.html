@@ -1,0 +1,108 @@
+{{>headerSistema}}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<!--Div that will hold the pie chart-->
+<table>
+
+    <tr>
+        <td><div id="cabinasChart"></div></td>
+        <td><form target="_blank" action="/mvc-gaucho-rocket/sistemagrafico/grafico" method="post">
+            <textarea id="cabinas" class="d-none" name="grafico"></textarea>
+            <input name="nombre" type="hidden" value="">
+            <input class="btn btn-primary" type="submit" value="Cabinas PDF">
+        </form></td>
+    </tr>
+    <tr>
+        <td><div id="usuariosChart"></div></td>
+        <td><form target="_blank" action="/mvc-gaucho-rocket/sistemagrafico/grafico" method="post">
+            <textarea id="usuarios" class="d-none" name="grafico"></textarea>
+            <input name="nombre" type="hidden" value="">
+            <input class="btn btn-primary" type="submit" value="Usuarios PDF">
+        </form></td>
+    </tr>
+</table>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>footer}}
+</div>
+</div>
+<script>
+    var cabinas = [];
+    var usuarios = [];
+    $.ajax({
+        url: "/mvc-gaucho-rocket/sistemagrafico/ajaxCabinas",
+        dataType : 'json',
+        success : function(result) {
+            const cabina=result.cabinas;
+            const usuario=result.usuarios;
+
+            for (let i=0; i<cabina.length; i++){
+                cabinas.push( [cabina[i].nombre, parseInt(cabina[i].cantidad)] );
+            }
+            for (let i=0; i<usuario.length; i++){
+                usuarios.push( ["(id:"+(usuario[i].id+") "+usuario[i].nombre+" "+usuario[i].email), parseInt(usuario[i].cantidad)] );
+            }
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawChartUsuarios);
+        },
+    });
+</script>
+<script type="text/javascript">
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows(cabinas);
+
+        // Set chart options
+        var options = {title:"Cabinas vendidas",
+            width:700,
+            height:500,
+            fontSize:20,
+            legendFontSize:20,
+            titleFontSize:30,
+            tooltipFontSize:20,
+            hAxis: {title: "Mes",
+                titleColor:'#cc0000'}};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('cabinasChart'));
+        chart.draw(data, options );
+
+        $("#cabinas").text(chart.getImageURI());
+    }
+    function drawChartUsuarios() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Reservas');
+        data.addRows(usuarios);
+
+        // Set chart options
+        var options = {title:"Usuarios que reservaron vuelos",
+            width:700,
+            height:400,
+            fontSize:20,
+            legendFontSize:20,
+            titleFontSize:30,
+            tooltipFontSize:20,
+            chartArea: {width: '50%'},
+            hAxis: {
+                title: 'Cantidad de Reservas',
+                minValue: 0}};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('usuariosChart'));
+        chart.draw(data, options );
+
+        $("#usuarios").text(chart.getImageURI());
+    }
+</script>
+
+

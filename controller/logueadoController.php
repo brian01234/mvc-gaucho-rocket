@@ -3,17 +3,18 @@ class logueadoController{
 
     private $printer;
     private $logueadoModel;
+    private $sessionUser;
 
-    public function __construct($logueadoModel, $printer){
+    public function __construct($logueadoModel, $printer, $sessionUser){
         $this->printer=$printer;
         $this->logueadoModel=$logueadoModel;
+        $this->sessionUser=$sessionUser;
     }
     public function show(){
-        if(isset ($_SESSION["id_usuario"])){
-            $data["resultado"]=$this->logueadoModel->getDatosDelUsuario($_SESSION["id_usuario"]);
-            echo $this->printer->render("view/logueadoView.html", $data);
-        }else{
-            header("Location: /login");
-        }
+        $dataSession=$this->sessionUser->validarLogin();
+        $data["session"]=$dataSession;
+        $data["resultado"]=$this->logueadoModel->getDatosDelUsuario($_SESSION["id_usuario"]);
+        if (isset($_SESSION["Administrador"])){$data["Administrador"]=$_SESSION["Administrador"];}
+        echo $this->printer->render("view/logueadoView.html", $data);
     }
 }

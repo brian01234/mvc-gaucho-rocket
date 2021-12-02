@@ -1,17 +1,17 @@
 
 {{>header}}
 <br><br><br><br><br>
-<div class="container">
+<div class="container form-neon">
 
 
-        {{#mensaje}} 
+        {{#mensaje}}
 		    <div class="alert alert-success" role="alert">
  <p>{{{mensaje}}}</p>
 		    </div>
         {{/mensaje}}
 
 
-<div class="container">
+<div>
     {{#titulo}}
     <h2>{{titulo}}</h2>
     <h4>{{origenDestino}}</h4>
@@ -25,9 +25,51 @@
     <hr>
         <h4>{{vuelosDisponibles}}</h4>
     {{/vuelosDisponibles}}
+
+
+    <p>
+        <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary bg-white w3-hover-shadow">Reservar Vuelo
+            <img style="width: 70px;" src="/mvc-gaucho-rocket/public/imagenes/sistema/vuelos.jpg">
+        </button>
+        </a>
+    </p>
+    <br>{{#listaDeEspera}}
+    <h2>{{listaDeEspera}}</h2>
+    <table class="table table-hover table-responsive-xl">
+        <tr>
+            <!--<th>id Vuelo</th>-->
+            <th>Cod. Reserva</th>
+            <th>T. Equipo</th>
+            <th>Fecha</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Hora</th>
+            <th>Cabina</th>
+            <th>Servicio</th>
+            <th></th>
+        </tr>
+        {{#reservasEnEspera}}
+        <tr>
+            <!--<td>{{idVuelo}}</td>-->
+            <td>{{codigo_reserva}}</td>
+            <td>({{tipoEquipo}}) {{modeloEquipo}}</td>
+            <td>{{fecha_reserva}}</td>
+            <td>{{origen}}</td>
+            <td>{{destino}}</td>
+            <td>{{hora}}</td>
+            <td>{{cabina}}</td>
+            <td>{{servicio}}</td>
+            <td><button form="formBajaListaDeEspera" data-toggle="modal" type="submit" class="bajaReserva btn btn-outline-danger btn-sm" name="reserva" value="{{id_reserva}}">Salir de lista de espera</button></td>
+        </tr>
+        {{/reservasEnEspera}}
+    </table>
+    <form id="formBajaListaDeEspera" method="post" action="/mvc-gaucho-rocket/MisReservas/bajaListaDeEspera"></form>
+    {{/listaDeEspera}}
+
+
+
         <h2>Mis reservas</h2>
-        <a href="/mvc-gaucho-rocket/reserva"><button type="button" class="btn btn-outline-secondary">Reservar vuelo</button></a>
-<table class="table table-hover">
+<table class="table table-hover table-responsive-xl">
     <tr>
         <!--<th>id Vuelo</th>-->
         <th>Cod. Reserva</th>
@@ -35,29 +77,85 @@
         <th>Fecha</th>
         <th>Origen</th>
         <th>Destino</th>
+        <th>Hora</th>
         <th>Asiento</th>
         <th>Cabina</th>
         <th>Servicio</th>
-        <th>Hora</th>
-        <th>Comprobante</th>
+        <th>Estado pago</th>
+        <!--<th>Estado Reserva</th>-->
+        <th>PDF</th>
+        <th>Baja</th>
     </tr>
     {{#reservas}}
     <tr>
         <!--<td>{{idVuelo}}</td>-->
         <td>{{codigo_reserva}}</td>
-        <td>({{tipo_equipo}})</td>
-        <td>{{fecha}}</td>
+        <td>({{tipoEquipo}}) {{modeloEquipo}}</td>
+        <td>{{fecha_reserva}}</td>
         <td>{{origen}}</td>
         <td>{{destino}}</td>
-        <td>{{asiento}}</td>
-        <td>{{cabina}}</td>
-        <td>{{nombre_servicio}}</td>
         <td>{{hora}}</td>
-        <td><a><button type="submit" class="btn btn-outline-secondary btn-sm">PDF</button></a></td>
+        <td>{{nAsiento}}</td>
+        <td>{{cabina}}</td>
+        <td>{{servicio}}</td>
+        <td class="text-{{type_reserva}}"><b>{{estado_pago}}</b></td>
+        <!--<td>{{estado}}</td>-->
+        <td><button form="reserva" type="submit" class="btn btn-outline-secondary btn-sm" name="reserva" value="{{codigo_reserva}}">Boarding-Pass</button></td>
+            <td><button data-toggle="modal" type="submit" class="bajaReserva btn btn-outline-danger btn-sm" data-target="#modalCenter" name="reserva" value="{{codigo_reserva}}">Baja</button></td>
     </tr>
     {{/reservas}}
 </table>
+    <form id="reserva" method="post" action="/mvc-gaucho-rocket/MisReservas/reserva"></form>
 
-</div> 
+    <form id="formularioA" method="post">
+
+    </form>
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="/mvc-gaucho-rocket/misReservas/bajaReserva" method="post" onsubmit="modal(this);" title="Baja reserva...">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                            <h2>¿Quiere dar de baja la reserva?</h2>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div id="div1">
+                            <h4></h4>
+                        </div>
+                </div>
+                <div class="modal-footer" id="modal-footer">
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>modal}}
 {{>footer}}
+<script>
+    $(document).ready(function(){
+        $(".bajaReserva").click(function (){
+            var reserva=$(this).val();
+            $.ajax({
+                type: "POST",
+                url: "/mvc-gaucho-rocket/misReservas/reservaAjax",
+                dataType : 'json',
+                data: {reserva:reserva},
+                success : function(result) {
+                    $("#div1 h4").html('<input type="hidden" name="reserva" value="'+result.codigoReserva+'"><b>'+
+                        ''+result.codigoReserva+'</b><br>'+result.dataReserva);
+                    if (result.estado=="Activo"){
+                        $("#modal-footer").html('<button type="button" class="btn btn-secondary mr-4" data-dismiss="modal">No</button> <button type="submit" class="btn btn-outline-danger">Baja reserva</button>');
+                    }else {$("#modal-footer").html("");}
+                },
+            });
+        });
+    });
+</script>

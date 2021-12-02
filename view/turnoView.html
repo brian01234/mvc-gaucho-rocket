@@ -3,19 +3,11 @@
 <br><br><br><br><br>
 <div class="container">
 
-
-        {{#mensaje}} 
-		    <div class="alert alert-success" role="alert">
- <p>{{{mensaje}}}</p>
-		    </div>
-        {{/mensaje}}
-
-
 <div class="container">
     <h2>Formulario para solicitar turno</h2>
 
     <br>
-<form action="/mvc-gaucho-rocket/medico/procesarTurno" class="form-neon" method="POST">
+<form action="/mvc-gaucho-rocket/medico/procesarTurno" class="form-neon" method="POST" onsubmit="modal(this);" title="Solicitar turno...">
 <p><label>Nombre:</label><strong>{{nombre}}</strong></p>
 <p><label>Apellido:</label><strong>{{apellido}}</strong></p>
 <p><label>Email:</label><strong>{{email}}</strong></p>
@@ -29,18 +21,18 @@
 
 </select>
 </div>
-<br><br>
+<br><br><br>
 <div>
-<label>Fecha :</label><input required type="date" name="fecha" id="fecha"  class="form-control">
+<label>Fecha :</label><input required type="date" name="fecha" id="fecha">
 </div>
 
-
-       <p class="text-center" style="margin-top: 40px;">
+<br><br><br>
+       <p class="text-center">
             <button type="submit" class="btn btn-raised btn-info btn-sm">Solicitar Turno</button>
         </p>
 		
 </form>
-
 </div> 
-</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br><br><br><br><br><br><br><br>
+{{>modal}}
 {{>footer}}

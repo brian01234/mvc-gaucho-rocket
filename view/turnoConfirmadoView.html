@@ -24,7 +24,7 @@
 <p><label>Fecha:</label><strong>{{fecha}}</strong></p>
 <p><label>Centro:</label><strong>{{nombre}}, {{descripcion}}</strong></p>
 
-    <form class="float-left" action="/mvc-gaucho-rocket/medico/procesarChequeoMedico" method="post">
+    <form class="float-left" action="/mvc-gaucho-rocket/medico/procesarChequeoMedico" method="post" onsubmit="modal(this);" title="Realizar chequeo...">
         <input type="hidden" name="idTurno" value="{{id_turno}}">
         <button type="submit" class="btn btn-primary">Realizar chequeo</button>
     </form>
@@ -36,5 +36,6 @@
 
         </div></div>
 </div> 
-</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>modal}}
 {{>footer}}

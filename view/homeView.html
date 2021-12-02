@@ -2,7 +2,38 @@
 <section class="containerImage">
     <img class="w3-center imglogo" src="public/imagenes/logo.png">
 <br><br>
-    <h3 class="reserva"><a href="/mvc-gaucho-rocket/reserva" class="w3-btn text-white">Hacé tu reserva</a></h3>
+
+
+    <div class="container bg-white pb-3 card" style="width: 800px;">
+        <form action="/mvc-gaucho-rocket/reserva/procesarDisponibilidad" method="get">
+            <h2 class="pt-3 pb-2 text-left">Hacé tu reserva</h2>
+
+            <div class="float-left">
+                <select required name="origen" id="origen" class="custom-select pl-2">
+                    <option value="">Origen</option>
+                    {{#destinos}}
+                    <option value="{{id_destino}}">{{nombre}}</option>
+                    {{/destinos}}
+                </select>
+            </div>
+            <div class="ml-4 float-left">
+                <select required name="destino" id="destino" class="custom-select pl-2">
+                    <option value="">Destino</option>
+                    {{#destinos}}
+                    <option value="{{id_destino}}">{{nombre}}</option>
+                    {{/destinos}}
+                </select>
+            </div>
+
+
+
+            <p class="float-right text-center">
+                <button type="submit" class="btn btn-raised btn-info btn-sm reserva">Buscar disponibilidad</button>
+            </p>
+
+        </form>
+
+    </div>
 </section>
 
 <section class="container1" id="destinos">

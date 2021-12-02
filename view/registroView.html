@@ -1,15 +1,15 @@
 {{>header}}<br><br>
-<!-- Page header -->
-<div class="full-box page-header">
-    <h3 class="text-left">
-    </>  REGISTRO DE  USUARIOS
-    </h3>
-    <p class="text-justify">  </p>
-</div>
 
+<div class="container"><br><br>
+    {{#msg}}
+    <div class="alert alert-danger" role="alert">
+        <strong></strong> {{msg}}
+    </div>
+    {{/msg}}
 <!-- Content -->
 <div class="container-fluid">
-    <form action="/mvc-gaucho-rocket/Registro/procesarFormulario" class="form-neon" method="POST" data-form="save" autocomplete="off">
+    <h3 class="text-left">REGISTRO DE  USUARIOS</h3><br>
+    <form action="/mvc-gaucho-rocket/Registro/procesarFormulario" class="form-neon" method="POST" data-form="save" autocomplete="off" onsubmit="modal(this);" title="Registro...">
         <fieldset>
             </i> &nbsp; Información personal
             <div class="container-fluid">
@@ -54,5 +54,6 @@
             <button type="submit" class="btn btn-raised btn-info btn-sm"></i>Registrarme</button>
         </p>
     </form>
-</div><br><br><br><br>
+</div></div><br><br><br><br>
+{{>modal}}
 {{>footer}}

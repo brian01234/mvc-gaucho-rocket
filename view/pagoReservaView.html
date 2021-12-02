@@ -1,0 +1,101 @@
+
+{{>header}}
+<br><br><br><br><br>
+<div class="container">
+
+
+        {{#mensaje}}
+		    <div class="alert alert-danger" role="alert">
+ <p>{{{mensaje}}}</p>
+		    </div>
+        {{/mensaje}}
+
+
+<div class="container">
+<form action="/mvc-gaucho-rocket/misReservas/boardingPass" onsubmit="modal(this);" title="Pagar..." class="" method="post">
+    {{#reserva}}
+    <input type="hidden" name="pago" value="Pago realizado">
+    <input type="hidden" name="reserva" value="{{codigo_reserva}}">
+    {{/reserva}}
+<div>
+    <div>
+        <section class="">
+            <div class="row d-flex justify-content-center">
+                <div class="">
+                    <div class="card rounded-3">
+                        <div class="card-body p-4">
+                            <div>
+                                <h1>Pagar Reserva</h1>
+                                {{#reserva}}
+                                <p>{{origen}} - {{destino}} {{fecha_reserva}} {{hora}}<br>
+                                    Asiento ({{nAsiento}})<br>
+                                    Cabina {{cabina}}<br>
+                                    Servicio {{servicio}}<br>
+                                    Equipo ({{tipoEquipo}}) {{modeloEquipo}}</p>
+                                <h3>Precio: ${{precio}}</h3>
+                                <hr>
+                                {{/reserva}}
+                            </div>
+                            <div class=" mb-4">
+
+                            </div>
+                            <form action="">
+                                <img style="width:300px;" class="img-fluid" src="../public/imagenes/card.jpg"><br><br>
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="formControlLgXsd" class="form-control form-control-lg" placeholder="Nombre"/>
+                                    <label class="form-label" for="formControlLgXsd">Cardholder's Name</label>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col-7">
+                                        <div class="form-outline">
+                                            <input
+                                                    type="text"
+                                                    id="formControlLgXM"
+                                                    class="form-control form-control-lg"
+                                                    value="1234 5678 1234 5678"
+                                            />
+                                            <label class="form-label" for="formControlLgXM">Card Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-outline">
+                                            <input
+                                                    type="password"
+                                                    id="formControlLgExpk"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="MM/YYYY"
+                                            />
+                                            <label class="form-label" for="formControlLgExpk">Expire</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-outline">
+                                            <input
+                                                    type="password"
+                                                    id="formControlLgcvv"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="Cvv"
+                                            />
+                                            <label class="form-label" for="formControlLgcvv">Cvv</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-outline-primary btn-lg btn-block">Pagar</button><hr>
+                                <a href="/mvc-gaucho-rocket/MisReservas" class="btn btn-secondary btn-lg btn-block">Pagar mas tarde</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<br><br>
+</form>
+    <form id="cabina" method="post" action="/mvc-gaucho-rocket/reserva/seleccionarCabinas"></form>
+</div> 
+</div><br><br><br><br><br><br><br><br><br><br><br><br>
+{{>modal}}
+{{>footer}}
